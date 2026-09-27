@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,4 +15,12 @@ model User {
   name      String?
   role      String   @default("user")
   createdAt DateTime @default(now())
+  tenant    Tenant?  @relation(fields: [tenantId], references: [id])
+  tenantId  Int?
+}
+
+model Tenant {
+  id    Int    @id @default(autoincrement())
+  name  String
+  users User[]
 }
